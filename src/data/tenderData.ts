@@ -167,6 +167,79 @@ export const QUIZ_QUESTIONS = [
   }
 ];
 
+export interface PartnerArchetype {
+  id: string;
+  name: string;
+  emoji: string;
+  blurb: string;
+  tags: TenderTags;
+}
+
+export const PARTNER_ARCHETYPES: PartnerArchetype[] = [
+  {
+    id: "budget-bae",
+    name: "Budget Bae",
+    emoji: "💸",
+    blurb: "Always brings coupons and loves KFC value boxes. Will split a 10-piece with you and call it romance.",
+    tags: { heat: 0, crunch: 1, price: 0, comfort: 1, share: 1, sauce: 1 }
+  },
+  {
+    id: "spice-fiance",
+    name: "Spice Fiancé",
+    emoji: "🔥",
+    blurb: "Can't date anyone who fears hot sauce. Judges your relationship potential by your ghost pepper tolerance.",
+    tags: { heat: 2, crunch: 1, price: 1, comfort: 2, share: 1, sauce: 2 }
+  },
+  {
+    id: "crispy-royalty",
+    name: "Crispy Queen/King",
+    emoji: "👑",
+    blurb: "Obsessed with crunch, hates soggy breading. Will break up with you over a limp tender.",
+    tags: { heat: 1, crunch: 2, price: 1, comfort: 1, share: 1, sauce: 1 }
+  },
+  {
+    id: "comfort-companion",
+    name: "Comfort Companion",
+    emoji: "🧈",
+    blurb: "Only eats tenders as comfort food at 2 AM. Perfect for Netflix binges and emotional eating sessions.",
+    tags: { heat: 0, crunch: 0, price: 1, comfort: 0, share: 2, sauce: 1 }
+  },
+  {
+    id: "signature-saucer",
+    name: "Signature Saucer",
+    emoji: "🥫",
+    blurb: "Judges you entirely by your dip game. Has strong opinions about ranch vs honey mustard debates.",
+    tags: { heat: 1, crunch: 1, price: 2, comfort: 1, share: 1, sauce: 2 }
+  },
+  {
+    id: "chaos-catalyst",
+    name: "Chaos Catalyst",
+    emoji: "🌪️",
+    blurb: "Mixes three sauces minimum and eats tenders with a fork. Unpredictable but never boring.",
+    tags: { heat: 2, crunch: 2, price: 2, comfort: 2, share: 2, sauce: 2 }
+  },
+  {
+    id: "minimalist-mate",
+    name: "Minimalist Mate",
+    emoji: "🤍",
+    blurb: "Dry rub loyalist who finds sauce 'too complicated'. Appreciates the simple things in tender life.",
+    tags: { heat: 0, crunch: 1, price: 0, comfort: 0, share: 0, sauce: 0 }
+  },
+  {
+    id: "premium-partner",
+    name: "Premium Partner",
+    emoji: "✨",
+    blurb: "Only the finest artisanal tenders will do. Expects truffle oil and gold leaf on everything.",
+    tags: { heat: 1, crunch: 1, price: 2, comfort: 0, share: 2, sauce: 2 }
+  }
+];
+
+export const PARTNER_COMPATIBILITY_COPY = {
+  high: "Congrats, you've found your Sauce-mate for life.",
+  medium: "A crunchy future awaits—just watch the spice levels.",
+  low: "Opposites snack-tract, maybe not long-term."
+};
+
 export const DENY_LIST = [
   'kill', 'bomb', 'nazi', 'rape', 'suicide', 'terror', '<script', 'http://', 'https://',
   'hate', 'stupid', 'idiot', 'dumb', 'suck', 'worst'

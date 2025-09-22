@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Tender, SessionVote, Poll, QuizVector, SEED_TENDERS, calculateOverall, getBadges, generateSessionId, DENY_LIST, PERSONALITY_BLURBS } from '@/data/tenderData';
+import { Tender, SessionVote, Poll, QuizVector, SEED_TENDERS, calculateOverall, getBadges, generateSessionId, DENY_LIST, PERSONALITY_BLURBS, PARTNER_ARCHETYPES, PARTNER_COMPATIBILITY_COPY, PartnerArchetype } from '@/data/tenderData';
 import { useToast } from '@/hooks/use-toast';
 
 interface SessionData {
@@ -295,6 +295,38 @@ export function useTenderBoard() {
     return { compat, compatText };
   }, []);
 
+  const findPartnerMatch = useCallback((userVector: QuizVector) => {
+    let bestMatch: (PartnerArchetype & { compatibility: number; compatText: string }) | null = null;
+    let bestScore = -1;
+    
+    PARTNER_ARCHETYPES.forEach(archetype => {
+      const archetypeVector: QuizVector = [
+        archetype.tags.heat,
+        archetype.tags.crunch,
+        archetype.tags.price,
+        archetype.tags.comfort,
+        archetype.tags.share,
+        archetype.tags.sauce
+      ];
+      
+      const distance = userVector.reduce((acc, val, idx) => acc + Math.abs(val - archetypeVector[idx]), 0);
+      const compatibility = Math.round(100 - (distance / 12) * 100);
+      
+      if (compatibility > bestScore) {
+        bestScore = compatibility;
+        bestMatch = {
+          ...archetype,
+          compatibility,
+          compatText: compatibility >= 95 ? PARTNER_COMPATIBILITY_COPY.high :
+                     compatibility >= 70 ? PARTNER_COMPATIBILITY_COPY.medium :
+                     PARTNER_COMPATIBILITY_COPY.low
+        };
+      }
+    });
+    
+    return bestMatch;
+  }, []);
+
   const getRandomTender = useCallback(() => {
     const tenderList = Object.values(state.tenders);
     return tenderList[Math.floor(Math.random() * tenderList.length)];
@@ -385,6 +417,7 @@ export function useTenderBoard() {
     scoreQuiz,
     getRecommendations,
     calculateTwinCompatibility,
+    findPartnerMatch,
     getRandomTender,
     
     // I/O

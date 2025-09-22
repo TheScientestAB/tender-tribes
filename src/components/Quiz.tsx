@@ -18,6 +18,8 @@ export function Quiz({ tenderBoard }: QuizProps) {
   const [twinAnswers, setTwinAnswers] = useState<(number | null)[]>(new Array(6).fill(null));
   const [twinResult, setTwinResult] = useState<any>(null);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [showPartnerMatch, setShowPartnerMatch] = useState(false);
+  const [partnerResult, setPartnerResult] = useState<any>(null);
 
   const isQuizComplete = answers.every(answer => answer !== null);
   const isTwinQuizComplete = twinAnswers.every(answer => answer !== null);
@@ -64,6 +66,14 @@ export function Quiz({ tenderBoard }: QuizProps) {
     });
   };
 
+  const findMyPartner = () => {
+    if (!result) return;
+    
+    const partnerMatch = tenderBoard.findPartnerMatch(result.vector);
+    setPartnerResult(partnerMatch);
+    setShowPartnerMatch(true);
+  };
+
   const resetQuiz = () => {
     setAnswers(new Array(6).fill(null));
     setResult(null);
@@ -71,6 +81,8 @@ export function Quiz({ tenderBoard }: QuizProps) {
     setShowTwinFlow(false);
     setTwinAnswers(new Array(6).fill(null));
     setTwinResult(null);
+    setShowPartnerMatch(false);
+    setPartnerResult(null);
   };
 
   const renderQuizForm = (
@@ -217,22 +229,77 @@ export function Quiz({ tenderBoard }: QuizProps) {
           </Card>
 
           {/* Tender Twin CTA */}
-          {!showTwinFlow && (
-            <Card className="text-center">
-              <CardContent className="p-6">
-                <h3 className="text-2xl font-bold mb-4">💕 Find Your Tender Twin</h3>
-                <p className="text-muted-foreground mb-4">
-                  Get a friend to take the quiz and see your compatibility!
-                </p>
-                <Button
-                  onClick={() => setShowTwinFlow(true)}
-                  className="btn-spicy text-lg px-6 py-3"
-                >
-                  🔍 Find My Twin
-                </Button>
-              </CardContent>
-            </Card>
+          {!showTwinFlow && !showPartnerMatch && (
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-4">💕 Find Your Tender Twin</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Get a friend to take the quiz and see your compatibility!
+                  </p>
+                  <Button
+                    onClick={() => setShowTwinFlow(true)}
+                    className="btn-spicy text-lg px-6 py-3"
+                  >
+                    🔍 Find My Twin
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <h3 className="text-2xl font-bold mb-4">💘 Find My Partner</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Discover your ideal life partner based on tender preferences!
+                  </p>
+                  <Button
+                    onClick={findMyPartner}
+                    className="btn-golden text-lg px-6 py-3"
+                  >
+                    💞 Find My Match
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           )}
+        </div>
+      )}
+
+      {/* Partner Match Result */}
+      {showPartnerMatch && partnerResult && (
+        <div className="space-y-6">
+          <Separator />
+          <Card className="tender-card text-center">
+            <CardContent className="p-8">
+              <h2 className="text-3xl font-bold mb-6 text-primary">
+                Your Tender Life Partner is...
+              </h2>
+              
+              <div className="text-8xl mb-6">{partnerResult.emoji}</div>
+              <h3 className="text-4xl font-bold mb-4 text-primary">
+                {partnerResult.name}
+              </h3>
+              
+              <div className="mb-6">
+                <div className="text-3xl font-bold mb-2">
+                  {partnerResult.compatibility}% Compatible
+                </div>
+                <div className="w-full bg-muted rounded-full h-4 mb-4">
+                  <div 
+                    className="bg-gradient-to-r from-primary to-accent h-4 rounded-full transition-all duration-1000 ease-out"
+                    style={{ width: `${partnerResult.compatibility}%` }}
+                  ></div>
+                </div>
+                <p className="text-xl font-semibold text-primary mb-4">
+                  {partnerResult.compatText}
+                </p>
+              </div>
+              
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {partnerResult.blurb}
+              </p>
+            </CardContent>
+          </Card>
         </div>
       )}
 
@@ -290,7 +357,7 @@ export function Quiz({ tenderBoard }: QuizProps) {
       )}
 
       {/* Reset Button */}
-      {(result || showTwinFlow) && (
+      {(result || showTwinFlow || showPartnerMatch) && (
         <div className="text-center">
           <Button onClick={resetQuiz} variant="outline" className="hover-lift">
             🔄 Take Quiz Again
