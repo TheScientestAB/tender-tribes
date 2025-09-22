@@ -130,39 +130,39 @@ export const QUIZ_QUESTIONS = [
     options: [
       { text: "Pillow", value: 0 },
       { text: "Balanced", value: 1 },
-      { text: "Shatter glass", value: 2 }
+      { text: "Gum cutter", value: 2 }
     ]
   },
   {
-    question: "Budget mood",
+    question: "whats ya budget",
     options: [
-      { text: "Coupons", value: 0 },
-      { text: "Whatever", value: 1 },
-      { text: "\"Surprise me\"", value: 2 }
+      { text: "Coupons nd food stamps", value: 0 },
+      { text: "Whatever, i eat normal", value: 1 },
+      { text: "\"im loaded \"", value: 2 }
     ]
   },
   {
     question: "Chaos level",
     options: [
-      { text: "I plan my bites", value: 0 },
-      { text: "I vibe", value: 1 },
-      { text: "I freestyle with 3 sauces", value: 2 }
+      { text: "I eat ehhhh, not too much", value: 0 },
+      { text: "I eat pretty fine nun crazy but much love", value: 1 },
+      { text: "I freestyle with 3 sauces and a tender fest", value: 2 }
     ]
   },
   {
     question: "Share style",
     options: [
-      { text: "Solo hunter", value: 0 },
+      { text: "Solo yolo", value: 0 },
       { text: "I share sometimes", value: 1 },
-      { text: "I host platters", value: 2 }
+      { text: "I eat like a greedy medieval king", value: 2 }
     ]
   },
   {
     question: "Sauce identity",
     options: [
-      { text: "Dry rub loyalist", value: 0 },
-      { text: "Classic dips", value: 1 },
-      { text: "Signature or nothing", value: 2 }
+      { text: "Dry rub loyalist, no weird saucy stuff", value: 0 },
+      { text: "Classic dips, the typical person", value: 1 },
+      { text: "from signature sauce to pee sauce any sauce tbh", value: 2 }
     ]
   }
 ];
