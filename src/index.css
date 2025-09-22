@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* TenderBoard Design System - Chicken Tender Theme 🍗
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Chicken tender inspired color palette */
+    --background: 35 20% 98%;
+    --foreground: 25 30% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 15% 96%;
+    --card-foreground: 25 30% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 15% 96%;
+    --popover-foreground: 25 30% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Golden crispy primary */
+    --primary: 35 85% 55%;
+    --primary-foreground: 35 10% 98%;
+    --primary-glow: 35 90% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Warm secondary */
+    --secondary: 30 25% 90%;
+    --secondary-foreground: 25 30% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Subtle muted tones */
+    --muted: 30 15% 92%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Spicy accent */
+    --accent: 15 85% 60%;
+    --accent-foreground: 15 10% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 20% 88%;
+    --input: 30 15% 94%;
+    --ring: 35 85% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* TenderBoard specific colors */
+    --tender-gold: 45 95% 58%;
+    --tender-bronze: 30 65% 45%;
+    --tender-spice: 15 85% 60%;
+    --tender-crunch: 25 45% 35%;
+    --tender-comfort: 35 25% 75%;
+
+    /* Gradients */
+    --gradient-golden: linear-gradient(135deg, hsl(var(--tender-gold)), hsl(var(--primary)));
+    --gradient-spicy: linear-gradient(135deg, hsl(var(--tender-spice)), hsl(var(--accent)));
+    --gradient-crispy: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--tender-bronze)));
+    --gradient-bg: linear-gradient(180deg, hsl(var(--background)), hsl(30 15% 95%));
+
+    /* Shadows */
+    --shadow-tender: 0 4px 20px -4px hsl(var(--primary) / 0.3);
+    --shadow-crispy: 0 8px 30px -8px hsl(var(--tender-gold) / 0.4);
+    --shadow-spicy: 0 6px 25px -6px hsl(var(--tender-spice) / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +130,226 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    background: var(--gradient-bg);
+    @apply text-foreground;
+  }
+}
+
+@layer components {
+  /* TenderBoard Button Variants */
+  .btn-golden {
+    background: var(--gradient-golden);
+    @apply text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5;
+  }
+  
+  .btn-spicy {
+    background: var(--gradient-spicy);
+    @apply text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5;
+  }
+  
+  .btn-crispy {
+    background: var(--gradient-crispy);
+    @apply text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* Tender Cards */
+  .tender-card {
+    @apply bg-card rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border border-border;
+    box-shadow: var(--shadow-tender);
+  }
+  
+  .tender-card:hover {
+    box-shadow: var(--shadow-crispy);
+  }
+
+  /* Leaderboard Podium */
+  .podium-gold {
+    background: var(--gradient-golden);
+    @apply text-primary-foreground;
+    box-shadow: var(--shadow-crispy);
+  }
+  
+  .podium-silver {
+    @apply bg-secondary text-secondary-foreground;
+    box-shadow: var(--shadow-tender);
+  }
+  
+  .podium-bronze {
+    @apply bg-muted text-muted-foreground;
+    box-shadow: var(--shadow-tender);
+  }
+
+  /* Tab Navigation */
+  .tab-active {
+    background: var(--gradient-golden);
+    @apply text-primary-foreground shadow-md;
+  }
+  
+  .tab-inactive {
+    @apply bg-secondary text-secondary-foreground hover:bg-muted transition-colors;
+  }
+
+  /* Rating Stars */
+  .star-rating {
+    @apply cursor-pointer transition-all duration-150;
+  }
+  
+  .star-rating:hover {
+    @apply scale-110;
+  }
+  
+  .star-rating.active {
+    @apply text-yellow-400;
+  }
+
+  /* Badge Styles */
+  .badge-spice {
+    background: var(--gradient-spicy);
+    @apply text-accent-foreground;
+  }
+  
+  .badge-comfort {
+    @apply bg-tender-comfort text-foreground;
+  }
+  
+  .badge-icon {
+    background: var(--gradient-golden);
+    @apply text-primary-foreground;
+  }
+
+  /* Quiz Result Flip Animation */
+  .quiz-flip {
+    @apply transition-transform duration-300;
+    transform-style: preserve-3d;
+  }
+  
+  .quiz-flip.flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .quiz-flip-front,
+  .quiz-flip-back {
+    @apply absolute inset-0 backface-hidden;
+  }
+  
+  .quiz-flip-back {
+    transform: rotateY(180deg);
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-200;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: var(--shadow-crispy);
+  }
+
+  /* Count-up Animation */
+  .count-up {
+    @apply font-bold tabular-nums;
+  }
+
+  /* Tender Slider */
+  .tender-slider {
+    @apply w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer;
+  }
+  
+  .tender-slider::-webkit-slider-thumb {
+    @apply appearance-none h-5 w-5 rounded-full bg-primary cursor-pointer shadow-md;
+  }
+  
+  .tender-slider::-moz-range-thumb {
+    @apply h-5 w-5 rounded-full bg-primary cursor-pointer shadow-md border-0;
+  }
+}
+
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .bg-gradient-golden {
+    background: var(--gradient-golden);
+  }
+  
+  .bg-gradient-spicy {
+    background: var(--gradient-spicy);
+  }
+  
+  .bg-gradient-crispy {
+    background: var(--gradient-crispy);
+  }
+  
+  .shadow-tender {
+    box-shadow: var(--shadow-tender);
+  }
+  
+  .shadow-crispy {
+    box-shadow: var(--shadow-crispy);
+  }
+  
+  .shadow-spicy {
+    box-shadow: var(--shadow-spicy);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+/* Keyframes for animations */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confetti {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1) rotate(180deg); opacity: 0; }
+}
+
+@keyframes starPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count-up { animation: countUp 0.6s ease-out; }
+.animate-confetti { animation: confetti 0.5s ease-out; }
+.animate-star-pop { animation: starPop 0.2s ease-out; }
+.animate-slide-up { animation: slideUp 0.3s ease-out; }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-count-up,
+  .animate-confetti,
+  .animate-star-pop,
+  .animate-slide-up,
+  .quiz-flip,
+  .hover-lift,
+  .hover-glow,
+  .transition-smooth,
+  .transition-bounce {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }

@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -46,6 +47,14 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        // TenderBoard theme colors
+        tender: {
+          gold: "hsl(var(--tender-gold))",
+          bronze: "hsl(var(--tender-bronze))",
+          spice: "hsl(var(--tender-spice))",
+          crunch: "hsl(var(--tender-crunch))",
+          comfort: "hsl(var(--tender-comfort))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -80,10 +89,36 @@ export default {
             height: "0",
           },
         },
+        "count-up": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "confetti": {
+          "0%": { transform: "scale(0) rotate(0deg)", opacity: "1" },
+          "100%": { transform: "scale(1) rotate(180deg)", opacity: "0" },
+        },
+        "star-pop": {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.2)" },
+          "100%": { transform: "scale(1)" },
+        },
+        "slide-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "flip": {
+          "0%": { transform: "rotateY(0deg)" },
+          "100%": { transform: "rotateY(180deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "count-up": "count-up 0.6s ease-out",
+        "confetti": "confetti 0.5s ease-out",
+        "star-pop": "star-pop 0.2s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
+        "flip": "flip 0.3s ease-out",
       },
     },
   },
